@@ -42,10 +42,13 @@ class CoffeeAPI {
             parameters += [Parameter.categoryId: "4bf58dd8d48988d1e0931735"]  // string is just the hard-coded ID for the “Coffeeshops” category on Foursquare
             parameters += [Parameter.radius: "2000"]
             parameters += [Parameter.limit: "50"]
-            
+            /*
             // Start a "search", i.e. an async call to Foursquare that should return venue data
-            
-            
+            let searchTask =  session.venues.search(parameters) {
+                
+                
+                
+            }*/
         }
         
     }
