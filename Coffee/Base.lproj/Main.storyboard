@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Coffee" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +17,47 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Yci-T4-v6O">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                            </mapView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H5H-l0-KLX">
+                                <rect key="frame" x="0.0" y="300" width="600" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Yci-T4-v6O" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1Us-wj-lcY"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="H5H-l0-KLX" secondAttribute="bottom" id="H0d-3r-Dc5"/>
+                            <constraint firstItem="H5H-l0-KLX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QOq-rD-sCe"/>
+                            <constraint firstItem="H5H-l0-KLX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="USs-6e-pST"/>
+                            <constraint firstItem="Yci-T4-v6O" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="Wz6-x9-aqp"/>
+                            <constraint firstAttribute="trailing" secondItem="Yci-T4-v6O" secondAttribute="trailing" id="ZVC-xM-NcA"/>
+                            <constraint firstItem="H5H-l0-KLX" firstAttribute="height" secondItem="Yci-T4-v6O" secondAttribute="height" id="bjd-YG-7Ub"/>
+                            <constraint firstAttribute="trailing" secondItem="H5H-l0-KLX" secondAttribute="trailing" id="dgr-BX-Rrq"/>
+                            <constraint firstItem="Yci-T4-v6O" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="f8a-Ha-aJB"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="H5H-l0-KLX" secondAttribute="bottom" id="mZ9-ow-tcu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Yci-T4-v6O" secondAttribute="trailing" id="tZO-0L-589"/>
+                            <constraint firstItem="H5H-l0-KLX" firstAttribute="top" secondItem="Yci-T4-v6O" secondAttribute="bottom" id="wkQ-1N-fFA"/>
+                            <constraint firstItem="Yci-T4-v6O" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="yRq-Y8-kYF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="H5H-l0-KLX" secondAttribute="trailing" id="yab-sJ-JO2"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Wz6-x9-aqp"/>
+                                <exclude reference="f8a-Ha-aJB"/>
+                                <exclude reference="tZO-0L-589"/>
+                                <exclude reference="USs-6e-pST"/>
+                                <exclude reference="yab-sJ-JO2"/>
+                                <exclude reference="H0d-3r-Dc5"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="305" y="415"/>
         </scene>
     </scenes>
 </document>
