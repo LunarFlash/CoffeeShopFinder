@@ -10,8 +10,9 @@ import UIKit
 import MapKit
 import RealmSwift
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+    
     @IBOutlet weak var mapView: MKMapView!
     
     
@@ -20,9 +21,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     let distanceSpan: Double = 500
     
     var lastLocation: CLLocation?
-    var venues: Results?
     
+    /// Stores venues from Realm as a Results instance, use if not using non-lazy / Realm sorting
+    var venues: Results<Venue>?
     
+    /// Stores venues from Realm, as a non-lazy list
+    //var venues:[Venue]?;
     
     
     
@@ -49,7 +53,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             locationManager!.delegate = self
             locationManager!.desiredAccuracy = kCLLocationAccuracyBestForNavigation
             locationManager!.requestAlwaysAuthorization()
-            locationManager!.distanceFilter = 50 // dont send location update with a distance smaller than 50 meters between them. 
+            locationManager!.distanceFilter = 50 // dont send location update with a distance smaller than 50 meters between them.
             
             locationManager!.startUpdatingLocation()
             
@@ -59,12 +63,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     
     // MARK: - Location Manager Delegate
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
@@ -92,12 +96,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             // all the objects of class Venue are requested from Realm and stored in the venues property. This property is of type Results?, which is essentially an array of Venue instances (with a little extra stuff).
             venues = realm.objects(Venue)
             
-            // for-in loop that iterates over all the venues and adds it as an annotation to the map view. 
-            
+            // for-in loop that iterates over all the venues and adds it as an annotation to the map view.
             for venue in venues! {
                 
                 let annotation = CoffeeAnnotation(title: venue.name, subtitle: venue.address, coordinate: CLLocationCoordinate2D(latitude: Double(venue.latitude), longitude: Double(venue.longitude)))
-                
                 
                 self.mapView?.addAnnotation(annotation)
             }
@@ -108,7 +110,25 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
     
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView?
+    {
+        // First, check if the annotation isn’t accidentally the user blip.
+        if annotation.isKindOfClass(MKUserLocation) {
+            return nil
+        }
+        // Then, dequeue a pin.
+        var view = mapView.dequeueReusableAnnotationViewWithIdentifier("annotationIdentifier")
+        if view == nil {
+            // Then, if no pin was dequeued, create a new one.
+            view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotationIdentifier")
+        }
+        
+        view?.canShowCallout = true
+        return view
+        
+    }
     
-
+    
+    
 }
 
