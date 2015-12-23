@@ -76,13 +76,21 @@ class CoffeeAPI {
                             autoreleasepool
                                 {
                                     
-                                    // “Untangling” of the request result data, and the start of the Realm transaction.
+                                    // instantiate a Realm with line let realm = try! Realm(). You need a realm object before you can work with data from Realm. The try! keyword is part of Swift’s error handling. With it, we tell: we’re not handling errors that come from Realm. This is not recommended for production environments, but it makes our code considerably easier.
+                                    
+                                    // try! (with exclamation mark). The exclamation mark suppresses the errors.
                                     
                                     let realm = try! Realm()
+                                    
+                                    //  beginWrite method on the realm instance. That code will start what’s known as a transaction. Let’s talk about efficiency for a second. What’s more efficient:
+                                    // Instead of writing all the Realm objects one by one, you open up the file once and then write 50 objects to it in one go. Since the data is fairly similar between objects, and they can be written successive (“back-to-back”) it’s way faster to open once, write 50, and close once. That’s what transactions do!
+                                    
+                                    // if one write in a transaction fails, all writes fail.
+                           
                                     realm.beginWrite()
                                     
                                     
-                                    // The for-in loop that loops over all the venue data.
+                                    // loop through dictionaries inside the venues array
                                     for venue:[String: AnyObject] in venues
                                     {
                                         let venueObject:Venue = Venue()
@@ -96,7 +104,7 @@ class CoffeeAPI {
                                         {
                                             venueObject.name = name
                                         }
-                                        
+                                        // Look closely, and check that keys lat, lng and formattedAddress are part of the location key (and not part of venue). They’re essentially one level down in the data structure.
                                         if  let location = venue["location"] as? [String: AnyObject]
                                         {
                                             if let longitude = location["lng"] as? Float
@@ -115,8 +123,19 @@ class CoffeeAPI {
                                             }
                                         }
                                         
+                                        
+                                        // add the venueObject to Realm, and write it to the database (still inside the transaction).
                                         realm.add(venueObject, update: true)
                                     }
+                                    // OK, now Realm has saved up all the write data in the transaction and will attempt to write it to the Realm database file. This can go wrong, of course. Fortunately Swift has an extensive error handling mechanism you can use. It goes like this:
+                                    
+                                    
+                                    /*
+                                    - Do dangerous task.
+                                    - If error occurs, throw the error.
+                                    - The caller of the dangerous task catches the error.
+                                    - The catcher handles the error.
+                                    */
                                     
                                     do {
                                         try realm.commitWrite()
@@ -127,11 +146,17 @@ class CoffeeAPI {
                                         print("Y U NO REALM ? \(e)")
                                     }
                             }
-                            // The end of the completion handler, it sends a notification.
+                            // send a notification to every part of the app that listens to it. It’s the de facto notification mechanism in apps, and it’s very effective for events that affect multiple parts of your app. Consider that you’ve just received new data from Foursquare. You may want to update the table view that shows that data, or some other part of your code. A notification is the best way to go about that.
+                            
+                            // Keep in mind for the future that notifications sent on one thread will remain in that thread. If you update your UI outside of the main thread, i.e. on a thread that sent a notification, your app will crash and throw a fatal error.
+                            
                             NSNotificationCenter.defaultCenter().postNotificationName(API.notifications.venuesUpdated, object: nil, userInfo: nil)
                         }
                     }
             }
+            // Now that we’ve set up the request, given it all parameters it needs, this code simply starts the search task.
+            
+            // The Das Quadrat library sends a message to Foursquare, waits for it to come back, and then invokes the closure you wrote to process the data.
             
             searchTask.start()
         }
