@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import RealmSwift
 
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
@@ -16,7 +17,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     
     var locationManager: CLLocationManager?
-    let distanceSpan:Double = 500
+    let distanceSpan: Double = 500
+    
+    var lastLocation: CLLocation?
+    var venues: Results?
+    
+    
+    
     
     
     
@@ -66,6 +73,38 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, distanceSpan, distanceSpan)
             mapView.setRegion(region, animated: true)
         }
+        
+    }
+    
+    
+    
+    func refreshVenues(location: CLLocation?, getDataFromFourSquare:Bool = false ) {
+        
+        if location != nil {
+            lastLocation = location
+        }
+        if let location = lastLocation {
+            if getDataFromFourSquare == true {
+                CoffeeAPI.sharedInstance.getCoffeeShopsWithLocation(location)
+            }
+            
+            let realm = try! Realm()
+            // all the objects of class Venue are requested from Realm and stored in the venues property. This property is of type Results?, which is essentially an array of Venue instances (with a little extra stuff).
+            venues = realm.objects(Venue)
+            
+            // for-in loop that iterates over all the venues and adds it as an annotation to the map view. 
+            
+            for venue in venues! {
+                
+                let annotation = CoffeeAnnotation(title: venue.name, subtitle: venue.address, coordinate: CLLocationCoordinate2D(latitude: Double(venue.latitude), longitude: Double(venue.longitude)))
+                
+                
+                self.mapView?.addAnnotation(annotation)
+            }
+            
+            
+        }
+        
         
     }
     

@@ -11,6 +11,7 @@
 		DE1D41D41C29B49800D2CD37 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE1D41D31C29B49800D2CD37 /* MapKit.framework */; };
 		DE1D41D61C29DD9300D2CD37 /* CoffeeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D41D51C29DD9300D2CD37 /* CoffeeAPI.swift */; };
 		DE1D41D81C2B178D00D2CD37 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D41D71C2B178D00D2CD37 /* Venue.swift */; };
+		DE1D41DA1C2B2B5F00D2CD37 /* CoffeeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D41D91C2B2B5F00D2CD37 /* CoffeeAnnotation.swift */; };
 		DE3801351C29A80000777DF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3801341C29A80000777DF5 /* AppDelegate.swift */; };
 		DE3801371C29A80000777DF5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3801361C29A80000777DF5 /* ViewController.swift */; };
 		DE38013A1C29A80000777DF5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE3801381C29A80000777DF5 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		DE1D41D31C29B49800D2CD37 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		DE1D41D51C29DD9300D2CD37 /* CoffeeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeAPI.swift; sourceTree = "<group>"; };
 		DE1D41D71C2B178D00D2CD37 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
+		DE1D41D91C2B2B5F00D2CD37 /* CoffeeAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeAnnotation.swift; sourceTree = "<group>"; };
 		DE3801311C29A80000777DF5 /* Coffee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coffee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE3801341C29A80000777DF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE3801361C29A80000777DF5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				DE3801401C29A80000777DF5 /* Info.plist */,
 				DE1D41D51C29DD9300D2CD37 /* CoffeeAPI.swift */,
 				DE1D41D71C2B178D00D2CD37 /* Venue.swift */,
+				DE1D41D91C2B2B5F00D2CD37 /* CoffeeAnnotation.swift */,
 			);
 			path = Coffee;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE3801371C29A80000777DF5 /* ViewController.swift in Sources */,
+				DE1D41DA1C2B2B5F00D2CD37 /* CoffeeAnnotation.swift in Sources */,
 				DE1D41D81C2B178D00D2CD37 /* Venue.swift in Sources */,
 				DE1D41D61C29DD9300D2CD37 /* CoffeeAPI.swift in Sources */,
 				DE3801351C29A80000777DF5 /* AppDelegate.swift in Sources */,
