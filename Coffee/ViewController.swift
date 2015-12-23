@@ -33,7 +33,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        // This will tell the notification center that self (the current class) is listening to a notification of type API.notifications.venuesUpdated. Whenever that notification is posted the method onVenuesUpdated:
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onVenuesUpdated:"), name: API.notifications.venuesUpdated, object: nil)
+        
+        
+    }
+    
+    func onVenuesUpdated(notification:NSNotification) {
+        self.refreshVenues(nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -76,6 +83,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if let mapView = self.mapView {
             let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, distanceSpan, distanceSpan)
             mapView.setRegion(region, animated: true)
+            
+            self.refreshVenues(newLocation, getDataFromFourSquare: true)
         }
         
     }
@@ -109,6 +118,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         
     }
+    
+    
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView?
     {
